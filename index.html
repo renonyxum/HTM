@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Hello, AR GLB!</title>
-	<!-- include three.js library from CDN -->
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'></script>
-    <!-- include GLTFLoader from CDN -->
-    <script src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js'></script> 
-	<!-- include jsartookit (assuming these are in a 'js/jsartoolkit5' folder relative to index.html) -->
-	<script src="js/jsartoolkit5/artoolkit.min.js"></script>
-	<script src="js/jsartoolkit5/artoolkit.api.js"></script>
-	<!-- include threex.artoolkit (assuming these are in a 'js/threex' folder relative to index.html) -->
-	<script src="js/threex/threex-artoolkitsource.js"></script>
-	<script src="js/threex/threex-artoolkitcontext.js"></script>
-	<script src="js/threex/threex-arbasecontrols.js"></script>
-	<script src="js/threex/threex-armarkercontrols.js"></script>
-	<script src="js/threex/threex-arsmoothedcontrols.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <title>.: Head controlled pointer :.</title>
+    
+    <style type="text/css">
+        /* Your existing inline styles from style.css can go here if you prefer,
+           or ensure style.css is linked correctly below. */
+    </style>
+
+    <!-- JEELIZ FACEFILTER API (required by HeadControls.js) : -->
+    <!-- Corrected path assuming 'dist' folder is in the repository root -->
+    <script src="dist/jeelizFaceFilter.js"></script>
+
+    <!-- HEAD CONTROLLER : -->
+    <!-- Corrected path assuming 'helpers' folder is in the repository root -->
+    <script src="helpers/HeadControls.js"></script>
+
+    <!-- INCLUDE FORK ME ON GITHUB BANNER -->
+    <!-- Corrected path assuming 'appearance' folder is in the repository root -->
+    <script src="appearance/widget.js"></script>
+
+    <!-- Jquery (required for main script) -->
+    <!-- Corrected path assuming 'libs' folder is in the repository root -->
+    <script src='libs/jquery/jquery-3.3.1.min.js'></script>
+
+    <!-- main script : -->
+    <!-- Corrected path assuming 'main.js' is in the repository root -->
+    <script src="main.js"></script>
+
+    <!-- Style : -->
+    <!-- Corrected path assuming 'fonts' and 'style.css' are in the repository root -->
+    <link href='fonts/poiretOne.css' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' type='text/css' href='style.css'>
 </head>
 
-<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+<body>
+  <div id="gallery" class="gallery">       
+  </div>
 
-<!-- 
-  Example created by Lee Stemkoski: https://github.com/stemkoski
-  Based on the AR.js library and examples created by Jerome Etienne: https://github.com/jeromeetienne/AR.js/
--->
+  <img class='cursor' src='images/cursors/pointer.png' id='cursor'/>
 
-<!-- Your main JavaScript logic is now in js/main.js -->
-<script src="js/main.js"></script>
+  <div id="content" class="content">
+    <div id="contentTitle" class="contentTitle">
+    </div>
+    <div id="contentInside" class="contentInside">
+    </div>
+  </div>
 
+  <canvas id='headControlsCanvas' width='512' height='512'></canvas>
 </body>
 </html>
