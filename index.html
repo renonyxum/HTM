@@ -21,9 +21,9 @@ var scene, camera, renderer, clock, deltaTime, totalTime;
 
 var arToolkitSource, arToolkitContext, smoothedControls;
 
-var markerRoot1; // markerRoot2 is not used in the original code, removed for clarity
+var markerRoot1;
 
-var glbModel; // Renamed mesh1 to glbModel for clarity
+var glbModel;
 
 initialize();
 animate();
@@ -110,34 +110,30 @@ function initialize()
 
 	// interpolates from last position to create smoother transitions when moving.
 	// parameter lerp values near 0 are slow, near 1 are fast (instantaneous).
-	let smoothedRoot = new THREE.Group();
-	scene.add(smoothedRoot);
-	smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+	let smoothedControls = new THREEx.ArSmoothedControls(markerRoot1, {
 		lerpPosition: 0.8,
 		lerpQuaternion: 0.8,
 		lerpScale: 1,
 		// minVisibleDelay: 1,
 		// minUnvisibleDelay: 1,
 	});
-
-    // --- Start of GLB Model Loading Changes ---
+    scene.add(smoothedControls.object3d);
 
     // Instantiate a loader
     const loader = new THREE.GLTFLoader();
 
-    // Load a glTF resource
+    // Load your GLB resource
     loader.load(
-        // Resource URL - Using the path you provided: HTM/assets/BOX.glb
-        './assets/BOX.glb', //
+        'HTM/assets/BOX.glb',
         // Called when the resource is loaded
         function ( gltf ) {
             glbModel = gltf.scene;
             // You might need to adjust the position, scale, or rotation of your model.
-            // Example: If your model is too large, you might scale it down:
+            // For example, if your model is too large, you might scale it down:
             // glbModel.scale.set(0.1, 0.1, 0.1);
             // If it's not centered on the marker, adjust its position:
             glbModel.position.y = 0.5; // Example: lift the model slightly above the marker
-            smoothedRoot.add( glbModel );
+            smoothedControls.object3d.add( glbModel );
         },
         // Called while loading is progressing
         function ( xhr ) {
@@ -145,11 +141,9 @@ function initialize()
         },
         // Called when loading has errors
         function ( error ) {
-            console.error( 'An error happened', error );
+            console.error( 'An error happened loading the GLB model:', error );
         }
     );
-
-    // --- End of GLB Model Loading Changes ---
 }
 
 
@@ -160,11 +154,7 @@ function update()
 		arToolkitContext.update( arToolkitSource.domElement );
 
 	// additional code for smoothed controls
-	smoothedControls.update(markerRoot1);
-
-    // If your GLB model has animations, you would typically update an animation mixer here.
-    // For example:
-    // if ( glbModel && glbModel.mixer ) glbModel.mixer.update( deltaTime );
+	// smoothedControls.update(markerRoot1); // This line is not needed if using the THREEx.ArSmoothedControls as above
 }
 
 
